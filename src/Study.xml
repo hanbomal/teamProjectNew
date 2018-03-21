@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study">
+	<select id="getNextNum" resultType="int">
+		select groupSer.nextval from
+		dual
+	</select>
+
+	<insert id="makingStudy" parameterType="Room">
+		insert into studygroup
+		values(#{num},#{studyName},
+		#{peopleCount},#{leader},sysdate,#{study_pro},#{study_back},
+		#{study_intro},#{proSize},#{backSize})
+	</insert>
+
+	<select id="resultList" resultType="Room" parameterType="hashmap">
+		select num, g.studyName, peopleCount, memberId, g.leader, status
+		openDate, study_pro, study_back, study_intro
+		from studygroup g, studyrelation r where studyName like '%'||#{studyName}||'%'
+	</select>
+
+	<select id="getStatus" parameterType="hashmap" resultType="String">
+		select num, g.studyName, peopleCount, memberId, g.leader, status
+		from
+		studygroup g, studyrelation r where g.studyName=r.studyName
+		and
+		memberId=#{memberId}
+	</select>
+
+</mapper>
