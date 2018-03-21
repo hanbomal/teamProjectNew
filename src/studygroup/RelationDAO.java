@@ -36,12 +36,4 @@ public class RelationDAO extends MybatisConnector{
 		sqlSession.commit();
 		sqlSession.close();
 	}
-	public String getStatus(String memberId, String studyName) {
-		sqlSession=sqlSession();
-		Map<String, String> map = new HashMap<>();
-		map.put("memberId", memberId);
-		map.put("studyName", studyName);
-		String status=sqlSession.selectOne(namespace+".getStatus",map);
-		return status;
-	}
 }

@@ -34,4 +34,13 @@ public class StudyDAO extends MybatisConnector{
 		sqlSession.close();
 		return li;
 	}
+	public String getStatus(String correctName,String memberId ) {
+		sqlSession=sqlSession();
+		Map<String,String> map = new HashMap<>();
+		map.put("studyName", correctName);
+		map.put("memberId", memberId);
+		String status=sqlSession.selectOne(namespace+".getStatus",map);
+		sqlSession.close();
+		return status;
+	}
 }

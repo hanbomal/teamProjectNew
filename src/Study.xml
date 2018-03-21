@@ -16,17 +16,17 @@
 	</insert>
 
 	<select id="resultList" resultType="Room" parameterType="hashmap">
-		select num, g.studyName, peopleCount, memberId, g.leader, status
-		openDate, study_pro, study_back, study_intro
-		from studygroup g, studyrelation r where studyName like '%'||#{studyName}||'%'
+		select * from studygroup where studyName like '%'||#{studyName}||'%'
 	</select>
 
-	<select id="getStatus" parameterType="hashmap" resultType="String">
-		select num, g.studyName, peopleCount, memberId, g.leader, status
-		from
+	<select id="getStatus" parameterType="hashmap" resultType="string">
+		select status from
 		studygroup g, studyrelation r where g.studyName=r.studyName
 		and
 		memberId=#{memberId}
+		<if test="studyName!=null">
+		   and r.studyName=#{studyName}
+		</if>
 	</select>
 
 </mapper>
